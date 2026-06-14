@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 技术交流示例群 · 群聊日报 2026-06-10</title>
+  <style>
+    :root {
+      --bg: #ece8df;
+      --paper: #fffdf8;
+      --ink: #1c1917;
+      --ink-soft: #57534e;
+      --line: rgba(28, 25, 23, 0.08);
+      --gold: #b8860b;
+      --gold-soft: #f4e8c8;
+      --teal: #1f6f5f;
+      --shadow: 0 24px 60px rgba(28, 25, 23, 0.12);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%, rgba(184, 134, 11, 0.18), transparent 28%),
+        radial-gradient(circle at 88% 0%, rgba(31, 111, 95, 0.14), transparent 24%),
+        linear-gradient(180deg, #e8e2d6 0%, var(--bg) 100%);
+      line-height: 1.6;
+    }
+    .shell {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 28px auto 48px;
+    }
+    .report {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-radius: calc(var(--radius) + 6px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .hero {
+      position: relative;
+      padding: 42px 40px 34px;
+      color: #faf7f0;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.06), transparent 40%),
+        linear-gradient(120deg, #1f2937 0%, #111827 45%, #1f6f5f 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -40% auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,134,11,0.35), transparent 68%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px);
+    }
+    .hero-badge::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fbbf24;
+      box-shadow: 0 0 12px rgba(251, 191, 36, 0.8);
+    }
+    .hero h1 {
+      margin: 18px 0 8px;
+      font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", "SimSun", serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      color: rgba(250, 247, 240, 0.82);
+      font-size: 14px;
+    }
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-meta span::before {
+      content: "•";
+      color: var(--gold);
+    }
+    .hero-meta span:first-child::before { content: none; }
+    .content { padding: 28px 34px 36px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 22px;
+      align-items: start;
+    }
+    .main-col { display: grid; gap: 22px; min-width: 0; }
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", serif;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .section-title::before {
+      content: "";
+      width: 4px;
+      height: 18px;
+      border-radius: 99px;
+      background: linear-gradient(180deg, var(--gold), var(--teal));
+    }
+    .summary-card {
+      padding: 22px 24px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, #fff9eb 0%, #fffdf8 100%);
+      border: 1px solid #f0dfae;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+    .summary-card.muted {
+      background: #f8f7f4;
+      border-color: var(--line);
+    }
+    .summary-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .summary-text {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.85;
+      color: #292524;
+    }
+    .summary-text code {
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(28,25,23,0.06);
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .metric-card {
+      padding: 18px 14px;
+      border-radius: 16px;
+      background: #faf9f6;
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+    .metric-card.highlight {
+      background: linear-gradient(160deg, #173f38, #1f6f5f);
+      color: #f5fffb;
+      border-color: transparent;
+    }
+    .metric-value {
+      font-family: "Source Han Serif SC", "Noto Serif SC", "Songti SC", serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .metric-value.sm { font-size: 22px; }
+    .metric-label {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .metric-hint {
+      margin-top: 4px;
+      font-size: 11px;
+      opacity: 0.72;
+    }
+    .chart-card {
+      padding: 18px 18px 12px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: #fcfbfa;
+    }
+    .chart-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+    .chart-head span { font-weight: 700; color: var(--ink); font-size: 14px; }
+    .hour-chart {
+      display: grid;
+      grid-template-columns: repeat(24, minmax(0, 1fr));
+      gap: 4px;
+      align-items: end;
+      height: 160px;
+      padding-top: 8px;
+    }
+    .hour-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: end;
+      height: 100%;
+      gap: 4px;
+    }
+    .hour-bar {
+      width: 100%;
+      max-width: 18px;
+      border-radius: 8px 8px 4px 4px;
+      background: linear-gradient(180deg, #64748b, #334155);
+      min-height: 4px;
+      transition: transform 0.2s ease;
+    }
+    .hour-col.peak .hour-bar {
+      background: linear-gradient(180deg, #fbbf24, #b8860b);
+      box-shadow: 0 0 16px rgba(184, 134, 11, 0.35);
+    }
+    .hour-count {
+      font-size: 9px;
+      color: var(--ink-soft);
+      min-height: 12px;
+    }
+    .hour-tick {
+      font-size: 9px;
+      color: #a8a29e;
+    }
+    .topic-list { display: grid; gap: 14px; }
+    .topic-card {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 14px;
+      padding: 18px 18px 18px 0;
+      border-radius: var(--radius);
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(28,25,23,0.04);
+    }
+    .topic-index {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 18px;
+      height: 54px;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--accent) 12%, white);
+      color: var(--accent);
+      font-family: "Source Han Serif SC", "Noto Serif SC", serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .topic-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .topic-top h3 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+    .time-badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #f5f5f4;
+      color: var(--ink-soft);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .contributors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 10%, white);
+      border: 1px solid color-mix(in srgb, var(--accent) 22%, white);
+      color: #44403c;
+      font-size: 12px;
+    }
+    .pill.muted-pill { background: #f5f5f4; border-color: #e7e5e4; color: #78716c; }
+    .topic-detail {
+      margin: 0;
+      color: #44403c;
+      font-size: 14px;
+      line-height: 1.75;
+    }
+    .evidence-block {
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+    .evidence-block blockquote {
+      margin: 0;
+      padding: 10px 12px 10px 14px;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      background: #fafaf9;
+      color: #57534e;
+      font-size: 13px;
+    }
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .member-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 12px;
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #fff, #faf9f6);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .member-card::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: hsl(var(--hue), 55%, 48%);
+    }
+    .member-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+      background: linear-gradient(135deg, hsl(var(--hue), 62%, 52%), hsl(calc(var(--hue) + 24), 58%, 38%));
+      box-shadow: 0 10px 20px hsla(var(--hue), 50%, 40%, 0.25);
+    }
+    .member-name { font-weight: 800; font-size: 15px; }
+    .member-title {
+      display: inline-block;
+      margin: 6px 0;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .member-info p {
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .member-rank {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #d6d3d1;
+    }
+    .side-card {
+      padding: 18px;
+      border-radius: var(--radius);
+      background: #faf9f6;
+      border: 1px solid var(--line);
+    }
+    .side-card h3 {
+      margin: 0 0 14px;
+      font-size: 15px;
+    }
+    .speaker-row {
+      display: grid;
+      grid-template-columns: 72px 1fr 34px;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 12px;
+    }
+    .speaker-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--ink-soft);
+    }
+    .speaker-bar-wrap {
+      height: 8px;
+      border-radius: 99px;
+      background: #ece9e4;
+      overflow: hidden;
+    }
+    .speaker-bar {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--teal), #34d399);
+    }
+    .speaker-count { text-align: right; font-weight: 700; color: var(--ink); }
+    .empty-state {
+      padding: 28px;
+      border-radius: var(--radius);
+      border: 1px dashed #d6d3d1;
+      background: #fafaf9;
+      text-align: center;
+      color: var(--ink-soft);
+    }
+    .empty-state strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 15px;
+    }
+    footer {
+      padding: 18px 34px 24px;
+      border-top: 1px solid var(--line);
+      color: #a8a29e;
+      font-size: 12px;
+      text-align: center;
+      background: #fcfbfa;
+    }
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .member-grid { grid-template-columns: 1fr; }
+      .hero, .content { padding-left: 22px; padding-right: 22px; }
+    }
+    @media (max-width: 560px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .topic-card { grid-template-columns: 1fr; }
+      .topic-index { margin: 0 18px; width: fit-content; min-width: 54px; }
+      .hour-chart { height: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <article class="report">
+      <header class="hero">
+        <div class="hero-badge">WeChat Daily Insight</div>
+        <h1>AI 技术交流示例群</h1>
+        <div class="hero-meta">
+          <span>2026-06-10 · 周三</span>
+          <span>601 条消息</span>
+          <span>48 人参与</span>
+        </div>
+      </header>
+
+      <div class="content">
+        <div class="summary-card"><div class="summary-label">AI 今日概览</div><p class="summary-text">示例群聊 602 条，上午从AI Token、无人出租车聊到.NET 11 Preview 5；青柚生成群日报引发星河改名梗；午后热议Codex接码与Copilot费用；下午猜成语「表生气」；晚间美食、就业与Claude游戏开发各有一波。</p></div>
+
+        <div class="layout">
+          <div class="main-col">
+            <section>
+              <h2 class="section-title">数据概览</h2>
+              <div class="metrics-grid"><div class="metric-card"><div class="metric-value">601</div><div class="metric-label">消息总数</div><div class="metric-hint">条对话记录</div></div><div class="metric-card"><div class="metric-value">48</div><div class="metric-label">参与人数</div><div class="metric-hint">位群友发言</div></div><div class="metric-card"><div class="metric-value">5,278</div><div class="metric-label">总字符数</div><div class="metric-hint">字文本内容</div></div><div class="metric-card"><div class="metric-value">20</div><div class="metric-label">表情数量</div><div class="metric-hint">个表情符号</div></div><div class="metric-card highlight"><div class="metric-value sm">11:00-12:00</div><div class="metric-label">最活跃时段</div><div class="metric-hint">全天讨论高峰</div></div></div>
+            </section>
+
+            <section>
+              <div class="chart-card"><div class="chart-head"><span>24 小时消息分布</span><em>峰值 11:00–12:00</em></div><div class="hour-chart"><div class="hour-col" title="00:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">00</span></div><div class="hour-col" title="01:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">01</span></div><div class="hour-col" title="02:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">02</span></div><div class="hour-col" title="03:00 · 4 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count">4</span><span class="hour-tick">03</span></div><div class="hour-col" title="04:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">04</span></div><div class="hour-col" title="05:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">05</span></div><div class="hour-col" title="06:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">06</span></div><div class="hour-col" title="07:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">07</span></div><div class="hour-col" title="08:00 · 47 条"><div class="hour-bar" style="height:36%"></div><span class="hour-count">47</span><span class="hour-tick">08</span></div><div class="hour-col" title="09:00 · 86 条"><div class="hour-bar" style="height:66%"></div><span class="hour-count">86</span><span class="hour-tick">09</span></div><div class="hour-col" title="10:00 · 94 条"><div class="hour-bar" style="height:72%"></div><span class="hour-count">94</span><span class="hour-tick">10</span></div><div class="hour-col peak" title="11:00 · 130 条"><div class="hour-bar" style="height:100%"></div><span class="hour-count">130</span><span class="hour-tick">11</span></div><div class="hour-col" title="12:00 · 12 条"><div class="hour-bar" style="height:9%"></div><span class="hour-count">12</span><span class="hour-tick">12</span></div><div class="hour-col" title="13:00 · 24 条"><div class="hour-bar" style="height:18%"></div><span class="hour-count">24</span><span class="hour-tick">13</span></div><div class="hour-col" title="14:00 · 105 条"><div class="hour-bar" style="height:80%"></div><span class="hour-count">105</span><span class="hour-tick">14</span></div><div class="hour-col" title="15:00 · 0 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count"></span><span class="hour-tick">15</span></div><div class="hour-col" title="16:00 · 3 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count">3</span><span class="hour-tick">16</span></div><div class="hour-col" title="17:00 · 19 条"><div class="hour-bar" style="height:14%"></div><span class="hour-count">19</span><span class="hour-tick">17</span></div><div class="hour-col" title="18:00 · 19 条"><div class="hour-bar" style="height:14%"></div><span class="hour-count">19</span><span class="hour-tick">18</span></div><div class="hour-col" title="19:00 · 34 条"><div class="hour-bar" style="height:26%"></div><span class="hour-count">34</span><span class="hour-tick">19</span></div><div class="hour-col" title="20:00 · 14 条"><div class="hour-bar" style="height:10%"></div><span class="hour-count">14</span><span class="hour-tick">20</span></div><div class="hour-col" title="21:00 · 3 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count">3</span><span class="hour-tick">21</span></div><div class="hour-col" title="22:00 · 2 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count">2</span><span class="hour-tick">22</span></div><div class="hour-col" title="23:00 · 5 条"><div class="hour-bar" style="height:4%"></div><span class="hour-count">5</span><span class="hour-tick">23</span></div></div></div>
+            </section>
+
+            <section>
+              <h2 class="section-title">热门话题</h2>
+              <div class="topic-list"><article class="topic-card" style="--accent:#c2783a"><div class="topic-index">01</div><div class="topic-body"><div class="topic-top"><h3>Token比云服务器贵与AI落地展望</h3><span class="time-badge">08:10-09:10</span></div><div class="contributors"><span class="pill">知秋</span><span class="pill">松间</span><span class="pill">林川</span><span class="pill">云舟</span><span class="pill">星河</span><span class="pill">清源</span></div><p class="topic-detail">群友调侃京东云广告「38元服务器还没token值钱」，延伸到AI Token付费、无人出租车（萝卜快跑）普及时间表，以及油车转电车的十年变迁。</p><div class="evidence-block"><blockquote>这服务器还没token值钱</blockquote><blockquote>AI落地就看无人出租车啥时候普及</blockquote><blockquote>10年后大街上都是无人出租车</blockquote></div></div></article><article class="topic-card" style="--accent:#2d6a4f"><div class="topic-index">02</div><div class="topic-body"><div class="topic-top"><h3>.NET 11 Preview 5 发布</h3><span class="time-badge">08:51-08:54</span></div><div class="contributors"><span class="pill">林川</span></div><p class="topic-detail">林川 分享 .NET 11 Preview 5 已发布，并提到支持迭代器直接转内存流等新特性，引发短暂技术关注。</p><div class="evidence-block"><blockquote>.NET 11 Preview 5 is now available!</blockquote><blockquote>还支持迭代器直接转内存流</blockquote></div></div></article><article class="topic-card" style="--accent:#3d5a80"><div class="topic-index">03</div><div class="topic-body"><div class="topic-top"><h3>群日报生成与星河改名梗</h3><span class="time-badge">09:24-09:51</span></div><div class="contributors"><span class="pill">青柚</span><span class="pill">星河</span><span class="pill">墨白</span><span class="pill">晴蓝</span><span class="pill">远山</span></div><p class="topic-detail">青柚被@总结昨日群聊并生成日报，误拉当天数据后重来；星河因上榜要求改群昵称为「灵感捕手」，群友附议闭合。</p><div class="evidence-block"><blockquote>总结下昨天的群聊话题</blockquote><blockquote>你群昵称改成灵感捕手</blockquote><blockquote>竟然没有星河，差评</blockquote></div></div></article><article class="topic-card" style="--accent:#7b4b94"><div class="topic-index">04</div><div class="topic-body"><div class="topic-top"><h3>Codex/Copilot费用与OpenAI接码困境</h3><span class="time-badge">10:15-11:07</span></div><div class="contributors"><span class="pill">森屿</span><span class="pill">墨白</span><span class="pill">小沐</span><span class="pill">山风</span><span class="pill">清源</span><span class="pill">白石</span></div><p class="topic-detail">张巍吐槽Copilot费用离谱寻求替代，墨白推荐Codex并分享购买渠道；多人讨论OpenAI短信验证、虚拟号接码失败、梯子IP风控及GLM与GPT对比体验。</p><div class="evidence-block"><blockquote>coplot 费用太离谱了 有啥便宜好用的么</blockquote><blockquote>OpenAI发短信还会检测是不是虚拟号</blockquote><blockquote>梯子IP被风控了，什么号码都没用</blockquote></div></div></article><article class="topic-card" style="--accent:#b5451b"><div class="topic-index">05</div><div class="topic-body"><div class="topic-top"><h3>AI快速造轮子与鸿蒙生态</h3><span class="time-badge">11:23-11:38</span></div><div class="contributors"><span class="pill">墨白</span><span class="pill">小沐</span><span class="pill">清源</span><span class="pill">松间</span><span class="pill">竹影</span><span class="pill">早春</span></div><p class="topic-detail">墨白称AI一天可复刻一个App，引发重复造轮子是否有价值之争；群友讨论鸿蒙国产化、语言壁垒消失及人手定制软件的未来。</p><div class="evidence-block"><blockquote>1天复刻一个app</blockquote><blockquote>重复造轮子，有价值？？？</blockquote><blockquote>反正AI时代么，造轮子也无所谓了</blockquote></div></div></article><article class="topic-card" style="--accent:#1d6f8a"><div class="topic-index">06</div><div class="topic-body"><div class="topic-top"><h3>看图猜成语「表生气」</h3><span class="time-badge">14:05-14:50</span></div><div class="contributors"><span class="pill">青柚</span><span class="pill">云舟</span><span class="pill">北辰</span><span class="pill">小舟</span><span class="pill">阿溪</span><span class="pill">星河</span></div><p class="topic-detail">云舟出题：时钟+生气河豚表情猜成语，群友猜矢志不渝、如鲠在喉等均不对，最终答案为谐音梗「表生气」，河豚生气变圆成关键提示。</p><div class="evidence-block"><blockquote>时钟，鱼，忠贞不渝，不是吗？</blockquote><blockquote>河豚只有生气的时候才会变圆</blockquote><blockquote>表生气</blockquote></div></div></article><article class="topic-card" style="--accent:#c2783a"><div class="topic-index">07</div><div class="topic-body"><div class="topic-top"><h3>美食分享：兔肉与炒南瓜</h3><span class="time-badge">17:33-19:20</span></div><div class="contributors"><span class="pill">青柚</span><span class="pill">星河</span><span class="pill">小舟</span><span class="pill">墨白</span><span class="pill">风见</span><span class="pill">今安</span></div><p class="topic-detail">青柚晒重庆同事带的兔肉引发馋嘴讨论；小舟晒南瓜准备开炒，墨白分享嫩南瓜醋溜配捞面、老南瓜煮茶等吃法，星河更馋青柚。</p><div class="evidence-block"><blockquote>重庆同事带的兔肉</blockquote><blockquote>这个应该叫 麻辣个兔</blockquote><blockquote>醋溜，配捞面条，小时候很爱吃</blockquote></div></div></article><article class="topic-card" style="--accent:#2d6a4f"><div class="topic-index">08</div><div class="topic-body"><div class="topic-top"><h3>就业市场与歇业现状</h3><span class="time-badge">19:21-20:20</span></div><div class="contributors"><span class="pill">海棠</span><span class="pill">小舟</span><span class="pill">云舟</span><span class="pill">风见</span><span class="pill">星河</span></div><p class="topic-detail">海棠问现在工作是否好找，多位群友表示不好找、已歇业一至两年；顺带聊炒股收益与身家，气氛略带自嘲。</p><div class="evidence-block"><blockquote>现在工作还好找吗</blockquote><blockquote>都歇一年了</blockquote><blockquote>我快歇两年了</blockquote></div></div></article></div>
+            </section>
+
+            <section>
+              <h2 class="section-title">群友称号</h2>
+              <div class="member-grid"><div class="member-card" style="--hue:21"><div class="member-avatar">😘</div><div class="member-info"><div class="member-name">青柚</div><div class="member-title">日报策展人</div><p>主动整理群聊线索，推动日报示例成型</p></div><div class="member-rank">#1</div></div><div class="member-card" style="--hue:232"><div class="member-avatar">子</div><div class="member-info"><div class="member-name">星河</div><div class="member-title">灵感捕手</div><p>贡献了多个高频讨论点，成为当天互动中心</p></div><div class="member-rank">#2</div></div><div class="member-card" style="--hue:14"><div class="member-avatar">亚</div><div class="member-info"><div class="member-name">墨白</div><div class="member-title">工具雷达</div><p>持续分享 AI 工具使用经验与订阅建议</p></div><div class="member-rank">#3</div></div><div class="member-card" style="--hue:342"><div class="member-avatar">小</div><div class="member-info"><div class="member-name">云舟</div><div class="member-title">互动气氛组</div><p>发起轻松互动，让技术讨论之外多了些趣味</p></div><div class="member-rank">#4</div></div><div class="member-card" style="--hue:44"><div class="member-avatar">M</div><div class="member-info"><div class="member-name">林川</div><div class="member-title">dotnet信使</div><p>第一时间分享.NET 11 Preview 5</p></div><div class="member-rank">#5</div></div><div class="member-card" style="--hue:196"><div class="member-avatar">张</div><div class="member-info"><div class="member-name">森屿</div><div class="member-title">AI工具比价师</div><p>追问Copilot/Codex费用与GLM对比</p></div><div class="member-rank">#6</div></div><div class="member-card" style="--hue:226"><div class="member-avatar">D</div><div class="member-info"><div class="member-name">明灯</div><div class="member-title">游戏AI信徒</div><p>深夜盛赞Claude Fable助力游戏开发</p></div><div class="member-rank">#7</div></div></div>
+            </section>
+          </div>
+
+          <aside>
+            <div class="side-card"><h3>发言排行</h3><div class="speaker-row"><span class="speaker-name">?</span><div class="speaker-bar-wrap"><div class="speaker-bar" style="width:100%"></div></div><span class="speaker-count">234</span></div><div class="speaker-row"><span class="speaker-name">云舟</span><div class="speaker-bar-wrap"><div class="speaker-bar" style="width:23%"></div></div><span class="speaker-count">54</span></div><div class="speaker-row"><span class="speaker-name">墨白</span><div class="speaker-bar-wrap"><div class="speaker-bar" style="width:17%"></div></div><span class="speaker-count">42</span></div><div class="speaker-row"><span class="speaker-name">星河</span><div class="speaker-bar-wrap"><div class="speaker-bar" style="width:15%"></div></div><span class="speaker-count">36</span></div><div class="speaker-row"><span class="speaker-name">远山</span><div class="speaker-bar-wrap"><div class="speaker-bar" style="width:8%"></div></div><span class="speaker-count">20</span></div><div class="speaker-row"><span class="speaker-name">小沐</span><div class="speaker-bar-wrap"><div class="speaker-bar" style="width:8%"></div></div><span class="speaker-count">19</span></div></div>
+          </aside>
+        </div>
+      </div>
+
+      <footer>Generated by wechat-analysis · 数据来自本地解密数据库 · AI 话题由 LLM 结构化分析</footer>
+    </article>
+  </div>
+</body>
+</html>

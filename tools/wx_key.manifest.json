@@ -1,0 +1,9 @@
+{
+  "version": "2.1.8",
+  "archive": "wx_key-windows-v2.1.8.zip",
+  "exe": "wx_key.exe",
+  "upstream_release": "https://github.com/ycccccccy/wx_key/releases/tag/v2.1.8",
+  "urls": [
+    "https://github.com/ycccccccy/wx_key/releases/download/v2.1.8/wx_key-windows-v2.1.8.zip"
+  ]
+}
