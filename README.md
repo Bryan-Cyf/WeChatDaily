@@ -96,7 +96,7 @@ flowchart LR
 ### 1. 克隆与安装
 
 ```bash
-git clone <你的仓库地址>
+git clone https://github.com/Bryan-Cyf/WeChatDaily.git
 cd WeChatDaily
 git submodule update --init --recursive
 pip install -r requirements.txt
