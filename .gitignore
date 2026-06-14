@@ -24,3 +24,5 @@ tools/astrbot_plugin_qq_group_daily_analysis-当个参考用/
 # 日报输出
 daily_report.log
 report_*.md
+
+.vs/
