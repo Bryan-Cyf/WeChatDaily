@@ -1,0 +1,4 @@
+interface:
+  display_name: "微信聊天总结生图"
+  short_description: "总结微信聊天、人物/话题故事线，并用内置生图生成趣味图或真人随拍虚构画像"
+  default_prompt: "Use $wechat-analysis-forcodex 总结指定微信聊天记录、人物/话题故事线，并按指定风格生成趣味图片或真人随拍虚构画像。"
